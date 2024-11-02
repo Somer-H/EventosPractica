@@ -57,12 +57,10 @@ export class UserController {
                     user: user // O devuelve un token si prefieres
                 });
             } else {
-                // Si las credenciales no son correctas, responde con un error 401 (No autorizado)
                 res.status(401).json({ error: 'Credenciales incorrectas' });
             }
         } catch (error) {
             console.error(error);
-            // Si ocurre un error inesperado, responde con un error 500 (Error interno del servidor)
             res.status(500).json({ error: 'Error en el proceso de inicio de sesión' });
         }
 }

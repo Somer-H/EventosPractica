@@ -14,3 +14,4 @@ userRoutes.get("/:idUsers", userController.getId.bind(userController));
 userRoutes.post("/", userController.createNewUser.bind(userController));
 userRoutes.put("/:idUsers",userController.updateUser.bind(userController));
 userRoutes.delete("/:idUsers",userController.deleteUser.bind(userController));
+userRoutes.post(":/login", userController.login.bind(userController));
