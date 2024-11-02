@@ -56,9 +56,9 @@ export class UserRepository {
         }
 
     }
-    async getByEmail(email: string): Promise<User | null>{
+    async getByEmail(e_mail: string): Promise<User | null>{
         try {
-            const [result]: any = await this.connection.execute("SELECT * FROM Users WHERE email=?", [email]);
+            const [result]: any = await this.connection.execute("SELECT * FROM Users WHERE e_mail=?", [e_mail]);
             if (result.length == 0){
             return null;
             }else{

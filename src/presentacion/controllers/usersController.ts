@@ -54,7 +54,7 @@ export class UserController {
                 res.status(200).json({
                     status: "OK",
                     message: 'Inicio de sesión exitoso',
-                    user: user // O devuelve un token si prefieres
+                    user: user 
                 });
             } else {
                 res.status(401).json({ error: 'Credenciales incorrectas' });

@@ -40,9 +40,8 @@ export class UserService {
     async deleteUser(idUsers:number): Promise<User | null> {
         return this.userRepositorio.deleteUser(idUsers);
     }
-    async login(email: string, password: string){
-
-        let log = await this.userRepositorio.getByEmail(email);
+    async login(e_mail: string, password: string){
+        let log = await this.userRepositorio.getByEmail(e_mail);
         if(log != null){
             const passwordMatch = await bcrypt.compare(password, log.password);
             if(passwordMatch){
