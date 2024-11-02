@@ -27,33 +27,58 @@ export class UserRepository {
     async getId(idUsers:number): Promise<User | null> {      
         try {
             const [rows]:any = await this.connection.execute('SELECT * FROM Users WHERE idUsers=?',[idUsers]);
-            return new User(
-                rows[0].idUsers,
-                rows[0].name,
-                rows[0].e_mail,
-                rows[0].password
-              );
+            let user : User ={
+                idUsers:rows[0].idUsers,
+                name:  rows[0].name,
+                e_mail: rows[0].e_mail,
+                password: rows[0].password
+            }
+            return user;
         } catch (error) {
               return null;
         }       
     }
     
     async createNewUser(data:any): Promise<User | null> {
-        let user = null        
+        let user = null       
         try {
             const [result]:any = await this.connection.execute('INSERT INTO Users (name, e_mail, password) VALUES (?, ?, ?)',[data.name,data.e_mail, data.password]);
-            return new User(result.insertId, data.name, data.email, data.password) 
+            let user : User= {
+               idUsers: result.insertId, 
+                name: data.name,
+                 e_mail: data.email,
+                 password: data.password
+            }
+            return user
         }
         catch(error){
-            return null
+            return user;
         }
 
     }
-
+    async getByEmail(email: string): Promise<User | null>{
+        try {
+            const [result]: any = await this.connection.execute("SELECT * FROM Users WHERE email=?", [email]);
+            if (result.length == 0){
+            return null;
+            }else{
+                const log = result[0];
+            return log;
+            }
+        } catch (error) {
+            return null
+        }
+    }
     async updateUser(idUsers:number, data:any): Promise<User | null > {        
         try {
             const [result] = await this.connection.execute('UPDATE Users SET name=?, e_mail=?, password=? WHERE idUsers=?',[data.name,data.e_mail,data.password, idUsers]);
-            return new User(idUsers, data.name, data.e_mail, data.password) 
+            let user : User = {
+                idUsers: idUsers, 
+                name: data.name,
+                e_mail:data.e_mail, 
+                password: data.password
+            }
+            return user;
         }
         catch(error){            
        console.log(error)

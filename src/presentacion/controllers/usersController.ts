@@ -44,4 +44,26 @@ export class UserController {
         const deleteUser = await this.userService.deleteUser(idUsers);
         res.status(200).send({ status: "OK", data: deleteUser });
     }
+    async login(req: Request, res: Response) {
+        const data = req.body;
+    
+        try {
+            const user = await this.userService.login(data.e_mail, data.password);
+    
+            if (user != null) {
+                res.status(200).json({
+                    status: "OK",
+                    message: 'Inicio de sesión exitoso',
+                    user: user // O devuelve un token si prefieres
+                });
+            } else {
+                // Si las credenciales no son correctas, responde con un error 401 (No autorizado)
+                res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+        } catch (error) {
+            console.error(error);
+            // Si ocurre un error inesperado, responde con un error 500 (Error interno del servidor)
+            res.status(500).json({ error: 'Error en el proceso de inicio de sesión' });
+        }
+}
 }
