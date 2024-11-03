@@ -57,11 +57,11 @@ export class UserController {
                     user: user 
                 });
             } else {
-                res.status(401).json({ error: 'Credenciales incorrectas' });
+                res.status(401).json({ error: 'Credenciales incorrectas', user: null });
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error en el proceso de inicio de sesión' });
+            res.status(500).json({ error: 'Error en el proceso de inicio de sesión', user: null});
         }
 }
 }
