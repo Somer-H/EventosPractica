@@ -44,15 +44,15 @@ export class UserRepository {
         try {
             const [result]:any = await this.connection.execute('INSERT INTO Users (name, e_mail, password) VALUES (?, ?, ?)',[data.name,data.e_mail, data.password]);
             let user : User= {
-               idUsers: result.insertId, 
+                idUsers: result.insertId, 
                 name: data.name,
-                 e_mail: data.email,
-                 password: data.password
+                e_mail: data.e_mail,
+                password: data.password
             }
             return user
         }
         catch(error){
-            return user;
+            return null;
         }
 
     }
