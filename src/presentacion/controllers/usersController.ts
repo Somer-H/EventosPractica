@@ -46,10 +46,8 @@ export class UserController {
     }
     async login(req: Request, res: Response) {
         const data = req.body;
-    
         try {
             const user = await this.userService.login(data.e_mail, data.password);
-    
             if (user != null) {
                 res.status(200).json({
                     status: "OK",
@@ -62,6 +60,6 @@ export class UserController {
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Error en el proceso de inicio de sesión', user: null});
+          }
         }
-}
 }

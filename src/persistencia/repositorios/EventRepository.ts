@@ -28,15 +28,16 @@ export class EventRepository {
     async getId(idEvento:number): Promise<Event | null> {      
         try {
             const [rows]:any = await this.connection.execute('SELECT * FROM Evento WHERE idEvento=?',[idEvento]);
-            return new Event(
-                rows[0].idEvento,
-                rows[0].description,
-                rows[0].max,
-                rows[0].location, 
-                rows[0].fecha, 
-                rows[0].hora,
-                rows[0].userId
-              );
+            return ({
+                idEvento:rows[0].idEvento,
+                description:rows[0].description,
+                max:rows[0].max,
+                location:rows[0].location, 
+                fecha:rows[0].fecha, 
+                hora:rows[0].hora,
+                userId:rows[0].userId
+            }
+        );
         } catch (error) {
               return null;
         }       
@@ -46,7 +47,8 @@ export class EventRepository {
         let event = null        
         try {
             const [result]:any = await this.connection.execute('INSERT INTO Evento (description, max, location, fecha, hora, userId) VALUES (?, ?, ?, ?, ?, ?)',[data.description,data.max, data.location, data.fecha, data.hora,data.userId]);
-            return new Event(result.insertId, data.description, data.max, data.location, data.fecha, data.hora, data.userId) 
+            return ({idEvento:result.insertId, description:data.description, max:data.max, location:data.location, fecha:data.fecha, hora:data.hora, userId:data.userId}
+            ) 
         }
         catch(error){
             return null
@@ -67,7 +69,16 @@ export class EventRepository {
     async updateEvent(idEvento:number, data:any): Promise<Event | null> {        
         try {
             const [result] = await this.connection.execute('UPDATE Evento SET description=?, max=?, location=?, fecha=?, hora=?, userId=? WHERE idEvento=?',[data.description,data.max,data.location, data.fecha, data.hora, data.userId, idEvento]);
-            return new Event(idEvento, data.description, data.max, data.location,data.fecha, data.hora, data.userId ) 
+            let event : Event= {
+                idEvento: idEvento, 
+                description: data.description, 
+                max: data.max, 
+                location: data.location, 
+                fecha:data.fecha, 
+                hora: data.hora,
+                userId: data.userId
+            }
+            return event; 
         }
         catch(error){        
             console.log(error)    

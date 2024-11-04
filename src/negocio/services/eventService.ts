@@ -21,7 +21,25 @@ export class EventService {
         return this.eventRepositorio.createNewUserEvent(data);
     }
     async updateEvent(idEvento:number, data:any): Promise<Event | null> {
-        return this.eventRepositorio.updateEvent(idEvento,data);
+        let eventSearch = await this.getId(idEvento);
+        if(eventSearch !=null){
+            if(data.description){
+                eventSearch.description = data.description;
+            }
+            if(data.fecha){
+                eventSearch.fecha = data.fecha
+            }
+            if(data.hora){
+                eventSearch.hora = data.hora
+            }
+            if(data.location){
+                eventSearch.location=data.location
+            }
+            if(data.max){
+                eventSearch.max= data.max
+            }
+        }
+        return this.eventRepositorio.updateEvent(idEvento,eventSearch);
     }
 
     async updateEventPartial(idEvento:number,data:any): Promise<Event | null> {
