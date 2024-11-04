@@ -45,7 +45,7 @@ export class EventService {
     async updateEventPartial(idEvento:number,data:any): Promise<Event | null> {
         return this.eventRepositorio.updateEvent(idEvento,data);    
     }
-    async deleteEvent(idEvento:number): Promise<Event | null> {
+    async deleteEvent(idEvento:number): Promise<any | null> {
         return this.eventRepositorio.deleteEvent(idEvento);
     }
     async getUserEvent(): Promise <Event | null>{
