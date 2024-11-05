@@ -16,6 +16,9 @@ export class EventService {
     async getEventWitUsers(): Promise<any | null>{
         return this.eventRepositorio.getEventWithUserId();
     }
+    async getEventWithParticipant(idEvento:number){
+        return this.eventRepositorio.getEventWithParticipants(idEvento)
+      }
     async getEventWithUsersByUserId(userId: number): Promise<any | null>{
         return this.eventRepositorio.getEventWithUserIdByUserId(userId);
     }

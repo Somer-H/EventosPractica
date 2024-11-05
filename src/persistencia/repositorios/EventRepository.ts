@@ -116,8 +116,25 @@ export class EventRepository {
     async getEventWithUserId(): Promise <any | null>{
         try {
             const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId")
+            console.log("Consulta ejecutada, resultado:", rows);
             return rows;
         } catch (error) {
+            return null;
+        }
+    }
+    async getEventWithParticipants(idEvento: number): Promise<any | null> {
+        try {
+            const [rows]: any = await this.connection.execute(`
+                SELECT Evento.*, Users.*
+                FROM Evento
+                JOIN UserEvent ON Evento.idEvento = UserEvent.eventId
+                JOIN Users ON UserEvent.userId = Users.idUsers
+                WHERE Evento.idEvento = ?
+            `, [idEvento]);
+            
+            return rows;
+        } catch (error) {
+            console.error("Error in database query:", error);
             return null;
         }
     }

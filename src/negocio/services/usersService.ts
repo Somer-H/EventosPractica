@@ -33,7 +33,7 @@ export class UserService {
         }
         return this.userRepositorio.updateUser(idUsers,existData);
     }
-
+  
     async updateUserPartial(idUsers:number,data:any): Promise<User | null> {
         return this.userRepositorio.updateUserPartial(idUsers,data);    
     }
