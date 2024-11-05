@@ -116,13 +116,15 @@ export class EventRepository {
     async getEventWithUserId(): Promise <any | null>{
         try {
             const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId")
+            return rows;
         } catch (error) {
             return null;
         }
     }
     async getEventWithUserIdByUserId(userId: number): Promise <any | null>{
         try {
-            const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId WHERE userId=?", [userId])
+            const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId WHERE userId=?", [userId]);
+            return rows;
         } catch (error) {
             return null;
         }
