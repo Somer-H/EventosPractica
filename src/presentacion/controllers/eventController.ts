@@ -23,6 +23,15 @@ export class EventController {
         const newEvent = await this.eventService.createNewEvent(data);
         res.status(200).send({ status: "OK", data: newEvent });
     }
+    async getEventWithUserByUserId(req: Request, res:Response){
+        const userId = parseInt(req.params.userId);
+        const event = await this.eventService.getEventWithUsersByUserId(userId);
+        res.status(200).send({status: "OK", data: event})
+    }
+    async getEventWithUser(req: Request, res: Response){
+       const event = await this.eventService.getEventWitUsers();
+       res.status(200).send({status: "OK", data: event})
+    }
     async createNewUserEvent(req: Request, res: Response){
         const data = req.body;
         const newUserEvent = await this.eventService.createNewUserEvent(data);

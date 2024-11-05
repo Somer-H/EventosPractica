@@ -92,10 +92,11 @@ export class EventRepository {
     }
     async deleteEvent(idEvento:number): Promise<any | null> {
         try {
-            const [result] = await this.connection.execute('DELETE FROM Evento WHERE idEvento=?',[idEvento]);
+            const [result] = await this.connection.execute('DELETE FROM Evento WHERE idEvento=?', [idEvento]);
             return {status: true} 
         }
-        catch(error){            
+        catch(error){     
+            console.log(error)       
             return null
         }  
     }
@@ -108,6 +109,20 @@ export class EventRepository {
                 JOIN Users AS u ON u.idUsers = ue.userId 
             `);
             return rows as Event[];
+        } catch (error) {
+            return null;
+        }
+    }
+    async getEventWithUserId(): Promise <any | null>{
+        try {
+            const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId")
+        } catch (error) {
+            return null;
+        }
+    }
+    async getEventWithUserIdByUserId(userId: number): Promise <any | null>{
+        try {
+            const [rows]: any = await this.connection.execute("SELECT * from Evento JOIN Users ON idUsers=userId WHERE userId=?", [userId])
         } catch (error) {
             return null;
         }

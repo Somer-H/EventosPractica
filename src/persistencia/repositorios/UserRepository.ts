@@ -38,7 +38,7 @@ export class UserRepository {
               return null;
         }       
     }
-    
+   
     async createNewUser(data:any): Promise<User | null> {
         let user = null       
         try {

@@ -13,7 +13,12 @@ export class EventService {
     async getId(idEvento:number):Promise<Event | null> {
         return this.eventRepositorio.getId(idEvento);
     }
-
+    async getEventWitUsers(): Promise<any | null>{
+        return this.eventRepositorio.getEventWithUserId();
+    }
+    async getEventWithUsersByUserId(userId: number): Promise<any | null>{
+        return this.eventRepositorio.getEventWithUserIdByUserId(userId);
+    }
     async createNewEvent(data:any): Promise<Event | null> {
         return this.eventRepositorio.createNewEvent(data);
     }
