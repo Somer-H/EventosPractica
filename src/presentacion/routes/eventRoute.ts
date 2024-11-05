@@ -10,7 +10,9 @@ const eventController = new EventController(eventService);
 
 //Endpoints del recurso users
 eventRoutes.get("/", eventController.getAll.bind(eventController));
+eventRoutes.get("/eventWithUser", eventController.getEventWithUser.bind(eventController));
 eventRoutes.get("/userEvent", eventController.getUserEvent.bind(eventController));
+eventRoutes.get("eventWithUser/:userId", eventController.getEventWithUserByUserId.bind(eventController))
 eventRoutes.get("/:idEvento", eventController.getId.bind(eventController));
 eventRoutes.post("/userEvent",eventController.createNewUserEvent.bind(eventController));
 eventRoutes.post("/", eventController.createNewEvent.bind(eventController));
