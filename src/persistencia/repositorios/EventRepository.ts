@@ -58,7 +58,7 @@ export class EventRepository {
     async createNewUserEvent(data:any): Promise<UserEvent | null> {
         let event = null        
         try {
-            const [result]:any = await this.connection.execute('INSERT INTO UserEvent (eventId, userId) VALUES (?, ?)',[data.userId,data.eventId]);
+            const [result]:any = await this.connection.execute('INSERT INTO UserEvent (eventId, userId) VALUES (?, ?)',[data.eventId,data.userId]);
             return new UserEvent(data.userId, data.eventId) 
         }
         catch(error){
